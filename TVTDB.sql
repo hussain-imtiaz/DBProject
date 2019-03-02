@@ -109,6 +109,7 @@ create table loginDetails(
 	--SuspendTime can be calculated accordingly
 	sessionTime int NOT NULL,
 	primary key (loginID),
+	foreign key(userID) references Users(userID) on delete cascade on update cascade,
 )
 
 create table Images(
