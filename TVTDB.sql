@@ -77,8 +77,9 @@ create table Episode(
 )
 
 create table Users(	
-	userID int NOT NULL,
+	userID int NOT NULL identity(1,1),
 	userName varchar(50),
+	password  varchar(20),
 	gender varchar(10),
 	bDate date,
 	primary key(userID),
@@ -144,3 +145,15 @@ Select * from Users
 Select * from Watchlists
 Select * from Watchhistory
 
+---- PROCEDURES ----
+
+Create Procedure Login
+@username varchar(50),
+@password varchar(20),
+@return int OUTPUT
+As
+Begin
+	Select @return=userID	
+	from Users
+	where [Users].userName = @username AND [Users].password=@password
+End
