@@ -157,3 +157,24 @@ Begin
 	from Users
 	where [Users].userName = @username AND [Users].password=@password
 End
+
+Create Procedure Signup
+@username varchar(50),
+@password varchar(20),
+@gender varchar(10),
+@bDate date,
+@return int OUTPUT
+As
+Begin	
+	IF NOT EXISTS (Select *
+				   from Users
+				   where userName = @username)
+	Begin
+		Insert Into Users(userName, password, gender, bDate) 
+		values (@username, @password, @gender, @bDate)
+
+		Select @return=userID
+		from Users
+		where userName = @username
+	End
+End
